@@ -1,0 +1,28 @@
+ButtonsPressed()
+{
+     ; Solange beide Maustasten gedrückt werden, halte MButton gedrückt
+    while (GetKeyState("LButton", "P") && GetKeyState("RButton", "P"))
+    {
+        Click("Middle", "D")  ; Mittlere Maustaste gedrückt halten
+        Sleep(50)  ; Eine kurze Pause, um die CPU-Last zu reduzieren
+    }
+    Click("Middle", "U")  ; Mittlere Maustaste loslassen, wenn eine der Maustasten nicht mehr gedrückt wird
+    ; Aufbrechen der Schleife, damit die linke Maustaste normal funktioniert
+    while GetKeyState("LButton", "P") || GetKeyState("RButton", "P")
+    {
+        Sleep(10)  ; Warten, bis beide Tasten losgelassen werden
+    }
+}
+
+~LButton & RButton:: 
+    {
+    ButtonsPressed()
+    }
+
+~RButton & LButton:: 
+    {
+    ButtonsPressed()
+    }
+    
+return
+
